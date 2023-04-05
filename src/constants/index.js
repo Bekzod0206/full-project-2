@@ -1,0 +1,1 @@
+export const logo = 'https://www.designevo.com/res/templates/thumb_small/abstract-paper-folding-letter-s-b.png'
