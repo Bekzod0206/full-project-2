@@ -1,3 +1,4 @@
+import { setItem } from "../helpers/persistenceStorage"
 import AuthService from "../service/auth"
 
 const state = {
@@ -29,6 +30,7 @@ const actions = {
       AuthService.register(user)
       .then(response => {
         context.commit('registerSuccess', response.data.user)
+        setItem('token', response.data.user.token)
         resolve(response.data.user)
       })
       .catch(error => {
