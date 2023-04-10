@@ -4,9 +4,9 @@
     <img :src="logo" alt="logo" style="width: 100px; cursor: pointer" @click="toHomeHandler">
     <h1 class="h3 mb-3 fw-normal">Register</h1>
 
-    <Input :label="'Name'" :type="'text'"/>
-    <Input :label="'Email address'" :type="'email'"/>
-    <Input :label="'Password'" :type="'password'"/>    
+    <Input :label="'Name'" :type="'text'" v-model="username"/>
+    <Input :label="'Email address'" :type="'email'" v-model="email"/>
+    <Input :label="'Password'" :type="'password'" v-model="password"/>    
 
     <Button type="submit" @click="submitHandler">Register</Button>
   </form>
@@ -17,7 +17,12 @@
 import { logo } from '../constants';
 export default {
   data(){
-    return {logo}
+    return {
+      logo,
+      username: '',
+      email: '',
+      password: '',
+    }
   },
   computed: {
     isLoading(){
@@ -28,13 +33,16 @@ export default {
     submitHandler(e){
       e.preventDefault();
       const data = {
-        username: 'bbsdsadoom',
-        email: 'bobbdssab@bb.ad',
-        password: 'sasasadssasa'
+        username: this.username,
+        email: this.email,
+        password: this.password,
       }
       this.$store.dispatch('register', data)
-        .then(user => console.log('USER', user))
-        .catch(err = console.log('ERROR', err))
+        .then(user => {
+          console.log('USER', user)
+          this.$router.push({name: 'home'})
+        })
+        .catch(err => console.log('ERROR', err))
     }
   }
 }
