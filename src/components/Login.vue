@@ -43,7 +43,7 @@ export default {
         email: this.email,
         password: this.password,
       }
-      this.store.dispatch('login', data)
+      this.$store.dispatch('login', data)
         .then(user => {
           console.log('USER', user)
           this.$router.push({name: 'home'})
