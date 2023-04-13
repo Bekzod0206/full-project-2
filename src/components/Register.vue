@@ -10,12 +10,13 @@
     <Input :label="'Email address'" :type="'email'" v-model="email"/>
     <Input :label="'Password'" :type="'password'" v-model="password"/>    
 
-    <Button type="submit" @click="submitHandler">Register</Button>
+    <Button type="submit" :disabled="isLoading" @click="submitHandler">Register</Button>
   </form>
 </main>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { logo } from '../constants';
 import ValidationError from './ValidationError.vue';
 export default {
@@ -31,12 +32,10 @@ export default {
     ValidationError
   },
   computed: {
-    isLoading(){
-      return this.$store.state.auth.isLoading
-    },
-    validationErrors(){
-      return this.$store.state.auth.errors
-    }
+    ...mapState({
+      isLoading: state => state.auth.isLoading,
+      validationErrors: state => state.auth.errors,
+    })
   },
   methods: {
     submitHandler(e){
