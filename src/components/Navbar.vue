@@ -6,10 +6,10 @@
 
       <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
         <template v-if="isLoggedIn">
-          <Router-link :to="{name: 'login'}" class="me-3 py-2 text-dark text-decoration-none">{{ user.username }}</Router-link>
+          <Router-link :to="{name: 'login'}" class="me-3 py-2 text-dark text-decoration-none">{{ currentUser.username }}</Router-link>
         </template>
 
-        <template v-if="!isLoggedIn">
+        <template v-if="isAnonymus">
           <Router-link :to="{name: 'login'}" class="me-3 py-2 text-dark text-decoration-none">Login</Router-link>
           
           <RouterLink :to="{name: 'register'}" class="me-3 py-2 text-dark text-decoration-none">Register</RouterLink>
@@ -21,16 +21,32 @@
 
 <script>
 import { mapState } from 'vuex';
+import { mapGetters } from 'vuex'
 import { logo } from '../constants';
+import { gettersTypes } from '@/modules/types'
 export default {
   data(){
     return {logo}
   },
   computed: {
-    ...mapState({
-      user: state => state.auth.user,
-      isLoggedIn: state => state.auth.isLoggedIn,
-    })
+    // ...mapState({
+    //   currentUser: state => state.auth.user,
+    //   isLoggedIn: state => state.auth.isLoggedIn,
+    // }),
+    ...mapGetters({
+      currentUser: gettersTypes.currentUser,
+      isLoggedIn: gettersTypes.isLoggedIn,
+      isAnonymus: gettersTypes.isAnonymus
+    }),
+    // currentUser(){
+    //   return this.$store.getters[gettersTypes.currentUser]
+    // },
+    // isLoggedIn(){
+    //   return this.$store.getters[gettersTypes.isLoggedIn]
+    // },
+    // isAnonymus(){
+    //   return this.$store.getters[gettersTypes.isAnonymus]
+    // }
   },
   methods: {
     toHomeHandler(){
