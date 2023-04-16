@@ -7,6 +7,10 @@
       <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
         <template v-if="isLoggedIn">
           <Router-link :to="{name: 'login'}" class="me-3 py-2 text-dark text-decoration-none">{{ currentUser.username }}</Router-link>
+
+          <a href="#" class="me-3 py-2 text-dark text-decoration-none" @click="logout">
+            Logout
+          </a>
         </template>
 
         <template v-if="isAnonymus">
@@ -51,6 +55,9 @@ export default {
   methods: {
     toHomeHandler(){
       return this.$router.push({name: 'home'})
+    },
+    logout(){
+      return this.$store.dispatch('logout')
     }
   }
 }
