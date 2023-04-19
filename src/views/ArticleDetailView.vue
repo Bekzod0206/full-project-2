@@ -1,11 +1,26 @@
 <template>
-  <h1>
-    Article details
-  </h1>
+  <div>
+    <Loader v-if="isLoading" class="offset-md-6"/>
+    <ArticleDetail v-else/>
+  </div>
 </template>
 
 <script>
-export default {}
+import { mapState } from 'vuex';
+import ArticleDetail from '@/components/ArticleDetail.vue'
+export default {
+  components: {
+    ArticleDetail
+  },
+  mounted(){
+    this.$store.dispatch('articleDetail', this.$route.params.slug)
+  },
+  computed: {
+    ...mapState({
+      isLoading: state => state.articles.isLoading
+    })
+  }
+}
 </script>
 
 <style></style>
