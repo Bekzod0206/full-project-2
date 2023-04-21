@@ -6,6 +6,8 @@
 
       <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
         <template v-if="isLoggedIn">
+          <Router-link :to="{name: 'create-article'}" class="me-3 py-2 text-dark text-decoration-none">Create article</Router-link>
+
           <Router-link :to="{name: 'login'}" class="me-3 py-2 text-dark text-decoration-none">{{ currentUser.username }}</Router-link>
 
           <a href="#" class="me-3 py-2 text-dark text-decoration-none" @click="logout">
